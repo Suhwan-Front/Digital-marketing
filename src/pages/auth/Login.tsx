@@ -1,8 +1,8 @@
-import { kakaoLogin } from "@/utils/kakaoLogin";
+import { kakaoInit } from "@/utils/kakaoInit";
 
 const Login = () => {
     const handleKakaoLogin = () => {
-        kakaoLogin();
+        kakaoInit()
     }
     return(
         <><button onClick={handleKakaoLogin}>123</button></>
