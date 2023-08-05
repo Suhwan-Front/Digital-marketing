@@ -1,14 +1,13 @@
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import LocalLogin from "../LocalLogin"
 
 export const TopNav: React.FC = () => {
   return (
-    <nav id="top_nav">
-      <button id="login">
-        <Link href={'/auth/Login'}>로그인</Link>
-      </button>
-      <div id="purchaser">구매자</div>
-      <div id="seller">판매자</div>
+    <nav className="flex flex-row justify-between text-base border-b-2 border-slate-200 min-w-DesktopSize">
+      <div className="flex flex-row">
+      <div id="purchaser" className="text-2xl">구매자</div>
+      <div id="seller" className="text-2xl">판매자</div>
+      </div>
+      <LocalLogin />
     </nav>
   )
 }
