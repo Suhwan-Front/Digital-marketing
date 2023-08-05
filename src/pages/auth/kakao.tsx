@@ -6,6 +6,7 @@ import { useCallback, useEffect } from 'react'
 const kakao: NextPage = () => {
   const router = useRouter()
   const { code: authCode, error: kakaoServerError } = router.query
+  const addressTest = '경북 청도'
 
   const kakaoLoginHandler = useCallback(
     async (code: string | string[]) => {
@@ -16,14 +17,15 @@ const kakao: NextPage = () => {
         },
         body: JSON.stringify({
           authCode: code,
+          address: addressTest
         }),
       }).then((res) => res.json())
-      //   if (response) {
-      //     localStorage.setItem('access_token', response)
-      //     router.push('/')
-      //   } else {
-      //     router.push('/auth/Login')
-      //   }
+         if (response) {
+           localStorage.setItem('access_token', response)
+           router.push('/')
+         } else {
+           router.push('/auth/Login')
+         }
     },
     [router],
   )
@@ -31,11 +33,11 @@ const kakao: NextPage = () => {
   useEffect(() => {
     localStorage.setItem('LoginItem', JSON.stringify(authCode))
     router.push('/')
-    // if (authCode) {
-    //   kakaoLoginHandler(authCode)
-    // } else if (kakaoServerError) {
-    //   router.push('/auth/Login')
-    // }
+    if (authCode) {
+      kakaoLoginHandler(authCode)
+    } else if (kakaoServerError) {
+      router.push('/auth/Login')
+    }
   }, [kakaoLoginHandler, authCode, kakaoServerError, router])
 
   return <h2>로그인 중입니다...</h2>
