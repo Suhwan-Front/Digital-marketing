@@ -1,13 +1,31 @@
-import LocalLogin from "../LocalLogin"
-
+import Link from 'next/link'
+import LocalLogin from '../LocalLogin'
+import AdSlider from './AdSlider'
 export const TopNav: React.FC = () => {
   return (
-    <nav className="flex flex-row justify-between text-base border-b-2 border-slate-200 min-w-DesktopSize">
-      <div className="flex flex-row">
-      <div id="purchaser" className="text-2xl">구매자</div>
-      <div id="seller" className="text-2xl">판매자</div>
+    <nav
+      suppressHydrationWarning
+      className="bg-white border-b border-gray-300 py-2"
+    >
+      <div className="max-w-screen-xl mx-auto flex justify-between items-center px-4">
+        <div className="flex space-x-4">
+          <Link href={'/'}>
+            <button
+              id="purchaser"
+              className="text-blue-500 hover:text-blue-700"
+            >
+              구매자
+            </button>
+          </Link>
+          <Link href={'/seller'}>
+            <button id="seller" className="text-blue-500 hover:text-blue-700">
+              판매자
+            </button>
+          </Link>
+        </div>
+        <LocalLogin />
       </div>
-      <LocalLogin />
+      <AdSlider />
     </nav>
   )
 }
