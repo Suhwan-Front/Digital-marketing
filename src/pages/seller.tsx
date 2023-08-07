@@ -1,13 +1,18 @@
+import { TopNav } from '@/components/main/TopNav'
 import React from 'react'
-import { TopNav } from '@/components/main/topNav'
+import '../app/globals.css'
 
-const seller = () => {
+const Seller: React.FC = () => {
   return (
     <>
       <TopNav />
-      <div>여기에 내용</div>
+      <div className='flex flex-row'>
+        <div>123</div>
+        <div>123</div>
+        <div>123</div>
+      </div>
     </>
   )
 }
 
-export default seller
+export default Seller

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import LocalLogin from '../LocalLogin'
-import AdSlider from './AdSlider'
+
 export const TopNav: React.FC = () => {
   return (
     <nav
@@ -25,7 +25,6 @@ export const TopNav: React.FC = () => {
         </div>
         <LocalLogin />
       </div>
-      <AdSlider />
     </nav>
   )
 }
