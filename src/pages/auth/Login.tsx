@@ -1,5 +1,6 @@
 import { kakaoInit } from "@/utils/kakaoInit";
 import '../../app/globals.css'
+import Link from "next/link";
 
 const Login = () => {
     const handleKakaoLogin = () => {
@@ -32,12 +33,16 @@ const Login = () => {
                     />
                 </div>
                 <button className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
-                    로그인
+                        로그인
                 </button>
                 <div className="text-center mt-4">
                     <p className="text-blue-500 hover:underline">아이디 찾기</p>
                     <p className="text-blue-500 hover:underline">비밀번호 찾기</p>
-                    <p className="text-blue-500 hover:underline">회원가입</p>
+                    <p className="text-blue-500 hover:underline">
+                    <Link href={'/auth/SignUp'}>
+                        회원가입
+                    </Link>
+                        </p>
                 </div>
                 <button
                     onClick={handleKakaoLogin}
