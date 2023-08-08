@@ -1,5 +1,6 @@
 import Link from "next/link"
 import AdSlider from "./AdSlider"
+import ProductList from "../sell/productList"
 
 const Main = () => {
     return(
@@ -8,6 +9,7 @@ const Main = () => {
                 <AdSlider />
             </div>
             <Link href={'/contents/draft'}>콘텐츠 등록</Link>
+            <ProductList />
         </div>
     )
 }
