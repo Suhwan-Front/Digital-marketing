@@ -4,10 +4,8 @@ import SellForm from '@/components/sell/sellForm';
 
 const SellPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="max-w-xl p-8 bg-white rounded-lg shadow-lg">
+    <div className="container mx-auto px-4 py-6">
         <SellForm />
-      </div>
     </div>
   );
 };
