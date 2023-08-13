@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../app/globals.css'
 
-const checkoutForm:React.FC = () => {
+const CheckoutForm:React.FC = () => {
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -22,7 +22,7 @@ const checkoutForm:React.FC = () => {
             />
           </div>
           <div>판매자: 행운의 판매자</div>
-          <a href="http://example.com">판매 페이지로 이동</a>
+          <a href="">판매 페이지로 이동</a>
         </div>
       </div>
 
@@ -67,4 +67,4 @@ const checkoutForm:React.FC = () => {
   );
 };
 
-export default checkoutForm;
+export default CheckoutForm;
