@@ -1,8 +1,8 @@
 import { postData } from "@/utils/_data";
 import '../../app/globals.css'
-import Post from "@/components/promotion/post";
+import Post from "@/components/promotion/Post";
 
-const promotion = () => {
+const Promotion = () => {
   if (!postData || !Array.isArray(postData)) {
     return <div>Error: postData is not an array or undefined</div>;
   }
@@ -16,4 +16,4 @@ const promotion = () => {
   );
 };
 
-export default promotion;
+export default Promotion;

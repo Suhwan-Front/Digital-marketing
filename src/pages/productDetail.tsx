@@ -1,6 +1,6 @@
 import ProductDetailForm from "@/components/sell/ProductDetailForm"
 
-const productDetail = () => {
+const ProductDetail = () => {
     return(
         <>
             <ProductDetailForm />
@@ -8,4 +8,4 @@ const productDetail = () => {
     )
 }
 
-export default productDetail
+export default ProductDetail

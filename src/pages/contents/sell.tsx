@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../app/globals.css'
-import SellForm from '@/components/sell/sellForm';
+import SellForm from '@/components/sell/SellForm';
 
 const SellPage: React.FC = () => {
   return (
