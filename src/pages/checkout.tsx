@@ -1,6 +1,6 @@
-import CheckoutForm from "@/components/sell/checkoutForm"
+import CheckoutForm from "@/components/sell/CheckoutForm"
 
-const checkout:React.FC = () => {
+const Checkout:React.FC = () => {
     return(
         <>
             <CheckoutForm />
@@ -8,4 +8,4 @@ const checkout:React.FC = () => {
     )
 }
 
-export default checkout
+export default Checkout

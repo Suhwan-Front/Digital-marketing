@@ -30,6 +30,7 @@ const Post: React.FC<PostProps> = ({ data }) => {
   const [showComments, setShowComments] = useState(false);
   const [liked, setLiked] = useState(false);
   const [animatedLike, setAnimatedLike] = useState<number | null>(null);
+  const [heartHover, setHeartHover] = useState(false);
 
    const handleShowComments = () => {
     setShowComments(!showComments);
@@ -47,8 +48,7 @@ const Post: React.FC<PostProps> = ({ data }) => {
 
   return (
     <div  className="post-container bg-white border shadow-md p-4 mb-4 transition-all duration-300 ease-in-out">
-    <div className="bg-white border shadow-md p-4 mb-4 transition-all duration-300 ease-in-out">
-      <h2 className="text-lg font-bold">{productTitle}</h2>
+    <h2 className="text-xl font-bold">{productTitle}</h2>
       <p className="text-sm text-gray-500">{author}</p>
       <div className="mt-4 relative">
         <img
@@ -59,6 +59,8 @@ const Post: React.FC<PostProps> = ({ data }) => {
       </div>
       <div className="flex items-center mt-2">
         <button
+          onMouseEnter={() => setHeartHover(true)}
+          onMouseLeave={() => setHeartHover(false)}
           onClick={likeClickHandler}
           className={`focus:outline-none ${
             liked
@@ -72,11 +74,13 @@ const Post: React.FC<PostProps> = ({ data }) => {
               height={40}
             />
           )}
+          <div className={`transition-transform duration-300 transform ${heartHover ? "scale-110" : ""}`}>
             {!liked ? (
-  <OutlineHeartIcon className="h-5" />
-) : (
-  <SolidHeartIcon className="h-5 text-red-500" />
-)}
+              <OutlineHeartIcon className="h-5" />
+            ) : (
+              <SolidHeartIcon className="h-5 text-red-500" />
+            )}
+          </div>
         </button>
         <span className="ml-2">{liked ? likes + 1 : likes}</span>
         <span className="ml-2">좋아요</span>
@@ -89,7 +93,7 @@ const Post: React.FC<PostProps> = ({ data }) => {
       <div className="mt-4">
         <button
           onClick={handleShowComments}
-          className="text-blue-500 focus:outline-none"
+          className="focus:outline-none text-blue-500 hover:text-blue-700 transition-colors duration-300"
         >
           {showComments ? "댓글 접기" : "댓글 더보기"}
         </button>
@@ -107,7 +111,6 @@ const Post: React.FC<PostProps> = ({ data }) => {
           </div>
         )}
       </div>
-    </div>
     </div>
   );
 };
