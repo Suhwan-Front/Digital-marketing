@@ -1,54 +1,52 @@
-import React, { useState } from 'react';
-import { HeartIcon as SolidHeartIcon } from "@heroicons/react/solid";
-import { HeartIcon as OutlineHeartIcon } from "@heroicons/react/outline";
+import React, { useState } from 'react'
+import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid'
+import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/outline'
 import '../../app/globals.css'
 
 type Comment = {
-  text: string;
-  likes: number;
-};
+  text: string
+  likes: number
+}
 
 type PostData = {
-  id: number;
-  productTitle: string;
-  author: string;
-  pictures: string[];
-  likes: number;
-  hashtags: string[];
-  comments: Comment[];
-};
+  id: number
+  productTitle: string
+  author: string
+  pictures: string[]
+  likes: number
+  hashtags: string[]
+  comments: Comment[]
+}
 
 type PostProps = {
-  data: PostData;
-};
+  data: PostData
+}
 
 const Post: React.FC<PostProps> = ({ data }) => {
-  const {
-    productTitle, author, pictures, likes, hashtags, comments,
-  } = data;
+  const { productTitle, author, pictures, likes, hashtags, comments } = data
 
-  const [showComments, setShowComments] = useState(false);
-  const [liked, setLiked] = useState(false);
-  const [animatedLike, setAnimatedLike] = useState<number | null>(null);
-  const [heartHover, setHeartHover] = useState(false);
+  const [showComments, setShowComments] = useState(false)
+  const [liked, setLiked] = useState(false)
+  const [animatedLike, setAnimatedLike] = useState<number | null>(null)
+  const [heartHover, setHeartHover] = useState(false)
 
-   const handleShowComments = () => {
-    setShowComments(!showComments);
-  };
+  const handleShowComments = () => {
+    setShowComments(!showComments)
+  }
 
-    const likeClickHandler = () => {
+  const likeClickHandler = () => {
     if (!liked) {
-      setAnimatedLike(Date.now());
+      setAnimatedLike(Date.now())
       setTimeout(() => {
-        setAnimatedLike(null);
-      }, 800);
+        setAnimatedLike(null)
+      }, 800)
     }
-    setLiked(!liked);
-  };
+    setLiked(!liked)
+  }
 
   return (
-    <div  className="post-container bg-white border shadow-md p-4 mb-4 transition-all duration-300 ease-in-out">
-    <h2 className="text-xl font-bold">{productTitle}</h2>
+    <div className="post-container bg-white border shadow-md p-4 mb-4 transition-all duration-300 ease-in-out">
+      <h2 className="text-xl font-bold">{productTitle}</h2>
       <p className="text-sm text-gray-500">{author}</p>
       <div className="mt-4 relative">
         <img
@@ -64,8 +62,8 @@ const Post: React.FC<PostProps> = ({ data }) => {
           onClick={likeClickHandler}
           className={`focus:outline-none ${
             liked
-              ? "text-red-500 transition-colors duration-300"
-              : "text-black transition-colors duration-300"
+              ? 'text-red-500 transition-colors duration-300'
+              : 'text-black transition-colors duration-300'
           }`}
         >
           {animatedLike && !liked && (
@@ -74,7 +72,11 @@ const Post: React.FC<PostProps> = ({ data }) => {
               height={40}
             />
           )}
-          <div className={`transition-transform duration-300 transform ${heartHover ? "scale-110" : ""}`}>
+          <div
+            className={`transition-transform duration-300 transform ${
+              heartHover ? 'scale-110' : ''
+            }`}
+          >
             {!liked ? (
               <OutlineHeartIcon className="h-5" />
             ) : (
@@ -87,7 +89,9 @@ const Post: React.FC<PostProps> = ({ data }) => {
       </div>
       <div className="mt-2">
         {hashtags.map((hashtag, index) => (
-          <span key={index} className="text-blue-500 mr-2">{hashtag}</span>
+          <span key={index} className="text-blue-500 mr-2">
+            {hashtag}
+          </span>
         ))}
       </div>
       <div className="mt-4">
@@ -95,7 +99,7 @@ const Post: React.FC<PostProps> = ({ data }) => {
           onClick={handleShowComments}
           className="focus:outline-none text-blue-500 hover:text-blue-700 transition-colors duration-300"
         >
-          {showComments ? "댓글 접기" : "댓글 더보기"}
+          {showComments ? '댓글 접기' : '댓글 더보기'}
         </button>
         {showComments && (
           <div className="mt-4">
@@ -112,7 +116,7 @@ const Post: React.FC<PostProps> = ({ data }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post
