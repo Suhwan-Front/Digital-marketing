@@ -13,6 +13,7 @@ const LocalLogin = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('LoginItem');
+    localStorage.removeItem('email')
     setLocalID(null);
   };
 

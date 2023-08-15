@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../app/globals.css";
 import { useRouter } from "next/router";
+import { API } from "@/API";
 
 
 type FormData = {
@@ -106,7 +107,7 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
   }
 
   try {
-    const response = await fetch("http://114.199.39.20:8080/auth/signup", {
+    const response = await fetch(`${API}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -123,7 +124,7 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
     });
 
     if (response.ok) {
-            router.push("/");
+            router.push("/auth/Login");
     } else {
       console.error("회원가입 실패");
     }
