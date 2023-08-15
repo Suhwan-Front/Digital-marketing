@@ -1,12 +1,16 @@
 import React from 'react'
 import '../../app/globals.css'
-import SellForm from '@/components/sell/sellForm'
+import { TopNav } from '@/components/main/TopNav'
+import SellForm from '@/components/sell/SellForm'
 
 const SellPage: React.FC = () => {
   return (
-    <div className="container mx-auto px-4 py-6">
-      <SellForm />
-    </div>
+    <>
+      <TopNav />
+      <div className="container mx-auto px-4 py-6">
+        <SellForm />
+      </div>
+    </>
   )
 }
 

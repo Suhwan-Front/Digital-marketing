@@ -1,7 +1,7 @@
 import { postData } from '@/utils/_data'
 import '../../app/globals.css'
-import Post from '@/components/promotion/Post'
 import { TopNav } from '@/components/main/TopNav'
+import Post from '@/components/promotion/Post'
 
 const Promotion = () => {
   if (!postData || !Array.isArray(postData)) {
@@ -11,7 +11,6 @@ const Promotion = () => {
   return (
     <div>
       <TopNav />
-
       {postData.map((post) => (
         <Post key={post.id} data={post} />
       ))}
