@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../../app/globals.css'
 import { motion } from 'framer-motion'
 import axios from 'axios';
@@ -28,11 +28,12 @@ interface Data {
 }
 
 const SellForm: React.FC = () => {
+  const [name, setName] = useState<string>("")
    const [data, setData] = useState<Data>({
     postTitle: "",
     postCategory: "",
     deliveryPrice: "",
-    postWriter: "수환",
+    postWriter: "",
     postContents: "",
     mainImage: null,
     descImages: [],
@@ -110,6 +111,9 @@ const removeProduct = (number: string) => {
     descImages: files,
   }));
   };
+  useEffect(()=>{
+    setName(localStorage.getItem('name') ?? '익명');
+  },[])
 
   // 폼 제출 처리
   const handleSubmit = async (e: React.FormEvent) => {
@@ -117,9 +121,9 @@ const removeProduct = (number: string) => {
 
   const formData = new FormData();
 
-  formData.append("postWriter", "수환");
+  formData.append("postWriter", name);
   formData.append("postContents", data.postContents);
-  formData.append("storeLocation", "대구");
+  formData.append("storeLocation", "서울");
   formData.append("postTitle", data.postTitle);
   formData.append("category", data.postCategory);
   formData.append("products", JSON.stringify(data.products));
@@ -254,9 +258,10 @@ const removeProduct = (number: string) => {
           >
             <option value="">-- 카테고리 선택 --</option>
             <option value="음식">음식</option>
-            <option value="전통">전통</option>
+            <option value="주류">주류</option>
+            <option value="필기도구">필기도구</option>
             <option value="가전">가전</option>
-            <option value="생활">활</option>
+            <option value="전통">전통</option>
             <option value="뷰티">뷰티</option>
           </select>
         </div>

@@ -19,5 +19,4 @@ module.exports = {
       DesktopSize: "1200px",
     },
   },
-  plugins: [],
 };

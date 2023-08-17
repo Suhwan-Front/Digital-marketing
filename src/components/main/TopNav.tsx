@@ -17,8 +17,8 @@ export const TopNav: React.FC = () => {
   );
 
   return (
-    <nav className="bg-white border-b border-gray-300 py-2 shadow">
-      <div className="max-w-screen-xl mx-auto flex justify-between items-center px-4">
+    <nav className="bg-transparent backdrop-blur-md bg-opacity-40 p-4 shadow-md border-b border-gray-300">
+      <div className="max-w-screen-xl mx-auto flex justify-between items-center">
         <div className="flex space-x-14">
           <div className="flex space-x-4">
             <Link href={'/'}>

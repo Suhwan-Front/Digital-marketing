@@ -16,3 +16,4 @@ declare module "@heroicons/react/solid" {
 
   export class HeartIcon extends React.Component<SVGAttributes<SVGElement>> {}
 }
+

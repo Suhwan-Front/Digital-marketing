@@ -9,7 +9,7 @@ export const UserLogin: React.FC = () => {
     const router = useRouter();
     const [isError, setIsError] = useState('');
     const handleKakaoLogin = () => {
-        kakaoInit();
+      router.push("KakaoEmail")
     };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
@@ -36,8 +36,9 @@ export const UserLogin: React.FC = () => {
 
     const data = await response.json();
 
-    if (data.access_token) {
+    if (response.ok) {
       localStorage.setItem("LoginItem", data.access_token);
+      localStorage.setItem("name", data.name);
       localStorage.setItem("email", email)
       router.push('/')
     } else {
@@ -48,9 +49,12 @@ export const UserLogin: React.FC = () => {
   }
 };
     return(
-            <div className="bg-white p-8 shadow-md rounded-md w-96">
-                <h1 className="text-3xl font-semibold mb-6 text-center">로그인</h1>
-                <form onSubmit={handleSubmit}>
+            <div
+              className="bg-transparent p-8 py-12 shadow-md rounded-md w-96 backdrop-blur-md bg-opacity-40"
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+            >
+              <h1 className="text-3xl font-bold mb-6 text-center">로그인</h1>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label htmlFor="username" className="text-sm font-semibold mb-1 block">
                         아이디
@@ -73,17 +77,21 @@ export const UserLogin: React.FC = () => {
                         placeholder="비밀번호를 입력하세요"
                     />
                 </div>
-                {isError === 'false' ? (<div
-      className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-      role="alert"
-    >
-      <strong className="font-bold">오류 발생! </strong>
-    </div>) : (<></>)}
-                <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
-                        로그인
+                {isError === "false" ? (
+                  <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong className="font-bold">오류 발생! </strong>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <button
+                  type="submit"
+                  className="w-full p-3 mt-4 bg-blue-500 text-white rounded-md transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-blue-600"
+                >
+                  로그인
                 </button>
-                </form>
-                <div className="text-center mt-4">
+              </form>
+              <div className="text-center mt-4">
                     <p className="text-blue-500 hover:underline">아이디 찾기</p>
                     <p className="text-blue-500 hover:underline">비밀번호 찾기</p>
                     <p className="text-blue-500 hover:underline">
@@ -93,10 +101,10 @@ export const UserLogin: React.FC = () => {
                         </p>
                 </div>
                 <button
-                    onClick={handleKakaoLogin}
-                    className="w-full mt-4 bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600"
+                  onClick={handleKakaoLogin}
+                  className="w-full p-3 mt-4 bg-yellow-500 text-white rounded-md transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-yellow-600"
                 >
-                    카카오 로그인
+                  카카오 로그인
                 </button>
             </div>
     )
