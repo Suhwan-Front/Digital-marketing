@@ -1,3 +1,4 @@
+import { Footer } from '@/components/main/Footer'
 import { TopNav } from '../components/main/TopNav'
 import './globals.css'
 
@@ -18,6 +19,7 @@ export default function RootLayout({
           <TopNav />
         </div>
         {children}
+        <Footer />
       </body>
     </html>
   )

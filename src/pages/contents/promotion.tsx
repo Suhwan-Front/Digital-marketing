@@ -1,21 +1,48 @@
-import { postData } from '@/utils/_data'
-import '../../app/globals.css'
-import { TopNav } from '@/components/main/TopNav'
-import Post from '@/components/promotion/Post'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { TopNav } from '@/components/main/TopNav';
+import Post from '@/components/promotion/Post';
+import { API } from '@/API';
 
 const Promotion = () => {
-  if (!postData || !Array.isArray(postData)) {
-    return <div>Error: postData is not an array or undefined</div>
-  }
+  const [postList, setPostList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setError(false);
+      setLoading(true);
+
+      try {
+        const response = await axios.get(`${API}/promotionalpost`);
+        if (response.data && response.data.result === 'success') {
+          setPostList(response.data.data);
+          console.log(response.data)
+        } else {
+          throw new Error(response.data.result);
+        }
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div>
       <TopNav />
-      {postData.map((post) => (
+      {postList.map((post) => (
         <Post key={post.id} data={post} />
       ))}
     </div>
   )
-}
+};
 
-export default Promotion
+export default Promotion;

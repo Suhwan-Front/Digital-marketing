@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { SalesPost } from '../../utils/types';
 import '../../app/globals.css'
 import Comment from './Comment';
+import axios from 'axios';
+import { API } from '@/API';
+import { BiSolidDownArrow } from "react-icons/bi";
 
 const style = {
   glassBg: 'bg-white backdrop-blur-md bg-opacity-60',
@@ -27,6 +30,7 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
   const [tagInput, setTagInput] = useState('');
   const [category, setCategory] = useState(''); 
   const [imageInput, setImageInput] = useState<File[]>([]);
+  const [name, setName] = useState<string>('');
 
 
   const handleSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -79,22 +83,56 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
     setImageInput(imageInput.filter((_, index) => index !== removeIndex));
   };
 
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(()=>{
+    setName(localStorage.getItem('name') ?? '익명');
+  },[])
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const payload = {
-      salesPostNumber: salesPost.salesPostNumber,
-      pmTag: tags,
-      pmCategory: category,
-      pmPostTitle: salesPost.postTitle,
-      pmPostWriter: salesPost.pmPostWriter,
-      pmPostContents: salesPost.postContents,
-      imageURLs: imageInput.map((image) => URL.createObjectURL(image)), // 이미지를 URL로 변환하여 저장
-    };
+    const formData = new FormData();
+    formData.append('salesPostNumber', salesPost.salesPostNumber);
+    formData.append('pmTag', JSON.stringify(tags));
+    formData.append('pmCategory', category);
+    formData.append('pmPostTitle', salesPost.postTitle);
+    formData.append('pmPostWriter', name);
+    formData.append('storeLocation', salesPost.storeLocation)
+    formData.append('pmPostContents', salesPost.postContents);
 
-    console.log('Payload to send:', payload); // 전송될 페이로드 확인
+    if (imageInput.length > 0) {
+      const [mainImage, ...otherImages] = imageInput;
+
+      formData.append('mainImage', mainImage);
+
+      // 이미지 파일 자체를 img 배열에 추가합니다.
+      otherImages.forEach((image, index) => {
+        formData.append(`img`, image);
+      });
+    }
+
+    console.log('Payload to send:', Array.from(formData.entries())); // 전송될 페이로드 확인
 
     // 서버 전송 코드 작성 (예: axios.post() 사용)
+    try {
+      // 수정하세요: 서버 주소를 입력하세요.
+      const response = await axios.post(`${API}/promotionalpost`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // 요청 헤더에 멀티파트 형식임을 명시해야 합니다.
+        },
+      });
+
+      if (response.status === 200) {
+        // 성공적으로 전송되었음을 알리는 메시지 나타냅니다.
+        alert('리뷰 및 댓글이 성공적으로 등록되었습니다.');
+      } else {
+        // 실패했을 때의 메시지를 나타냅니다.
+        alert(`오류 발생: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('에러가 발생했습니다:', error);
+      alert('리뷰 및 댓글 등록 중에 문제가 발생했습니다. 다시 시도해주세요.');
+    }
+
     setCommentList([
       ...commentList,
       {
@@ -124,7 +162,7 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
 
   if (salesPost.result === 'success') {
     return (
-      <div className="container mx-auto py-8">
+      <div className="product-container mx-auto py-8">
         <h1 className="text-4xl mb-8 font-bold text-gray-700">{salesPost.postTitle}</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Product Images Section */}
@@ -156,10 +194,11 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
 
             <div className="mb-4">
               <h2 className="text-2xl mb-2 font-semibold text-gray-600">옵션 선택</h2>
+              <BiSolidDownArrow className="absolute top-0 right-3 z-10 text-gray-600 pointer-events-none" />
               <select
                 value={selectedOption}
                 onChange={handleSelectOption}
-                className="w-full mb-2 bg-white border border-gray-300 rounded-md text-gray-600"
+                className="w-full border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none"
               >
                 <option value="">옵션을 선택하세요</option>
                 {salesPost.products &&

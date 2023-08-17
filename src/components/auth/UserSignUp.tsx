@@ -145,7 +145,7 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 py-24">
       <div className="w-full max-w-lg">
         <form onSubmit={handleSignUp} className="bg-white shadow-lg rounded-lg px-12 py-8 mb-4">
           <h2 className="text-3xl font-semibold mb-6">회원가입</h2>
