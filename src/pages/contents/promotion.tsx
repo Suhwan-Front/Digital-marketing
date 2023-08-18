@@ -3,14 +3,35 @@ import axios from 'axios'
 import { TopNav } from '@/components/main/TopNav'
 import Post from '@/components/promotion/post'
 
+interface PostType {
+  id: number
+  pmPostTitle: string
+  pmPostWriter: string
+  pmMainImage: string
+  pmPostPictures: string[]
+  pmPostLike: number
+  pmTag: string[]
+  pmPostContent: string
+  comments: Comment[]
+}
+
+type Comment = {
+  id: number
+  content: string
+  commentLike: number
+  username: string
+  created_at: string
+  updated_at: string
+}
+
 const Promotion = () => {
-  const [postList, setPostList] = useState([])
+  const [postList, setPostList] = useState<PostType[]>([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
-      setError(false)
+      setError('false')
       setLoading(true)
 
       try {
@@ -24,7 +45,11 @@ const Promotion = () => {
           throw new Error(response.data.result)
         }
       } catch (e) {
-        setError(e.message)
+        if (e instanceof Error) {
+          setError(e.message)
+        } else {
+          setError('알 수 없는 오류가 발생했습니다.')
+        }
       } finally {
         setLoading(false)
       }
