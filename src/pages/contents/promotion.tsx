@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { TopNav } from '@/components/main/TopNav'
-import Post from '@/components/promotion/post'
+import { TopNav } from '../../components/main/TopNav'
+import Post from '../../components/promotion/post'
 
 interface PostType {
   id: number

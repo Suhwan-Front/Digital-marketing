@@ -1,7 +1,7 @@
 import React from 'react'
 import { SalesPost } from '../../utils/types'
-import ProductDetailForm from '@/components/sell/ProductDetailForm'
-import { TopNav } from '@/components/main/TopNav'
+import ProductDetailForm from '../../components/sell/ProductDetailForm'
+import { TopNav } from '../../components/main/TopNav'
 
 interface ProductDetailPageProps {
   salesPost: SalesPost

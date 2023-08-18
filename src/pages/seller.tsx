@@ -1,8 +1,8 @@
-import { TopNav } from '@/components/main/TopNav'
+import { TopNav } from '../components/main/TopNav'
 import React, { useEffect, useState } from 'react'
 import '../app/globals.css'
 import Link from 'next/link'
-import { Footer } from '@/components/main/Footer'
+import { Footer } from '../components/main/Footer'
 
 interface Product {
   result: string

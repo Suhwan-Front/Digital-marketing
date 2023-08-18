@@ -1,4 +1,4 @@
-import { KakaoLogin } from '@/components/auth/KakaoLogin'
+import { KakaoLogin } from '../../components/auth/KakaoLogin'
 
 const KakaoEmail = () => {
   return (

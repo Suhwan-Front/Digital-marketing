@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../app/globals.css'
-import { TopNav } from '@/components/main/TopNav'
-import SellForm from '@/components/sell/sellForm'
+import { TopNav } from '../../components/main/TopNav'
+import SellForm from '../../components/sell/sellForm'
 
 const SellPage: React.FC = () => {
   return (

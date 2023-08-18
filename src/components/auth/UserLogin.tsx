@@ -1,4 +1,3 @@
-import { kakaoInit } from '@/utils/kakaoInit'
 import Link from 'next/link'
 import '../../app/globals.css'
 import { useRouter } from 'next/router'

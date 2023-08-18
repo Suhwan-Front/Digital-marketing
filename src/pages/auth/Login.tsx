@@ -1,6 +1,6 @@
-import { TopNav } from '@/components/main/TopNav'
+import { TopNav } from '../../components/main/TopNav'
+import { UserLogin } from '../../components/auth/UserLogin'
 import '../../app/globals.css'
-import { UserLogin } from '@/components/auth/UserLogin'
 
 const Login = () => {
   return (

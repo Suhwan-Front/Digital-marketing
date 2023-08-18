@@ -1,4 +1,4 @@
-import ProductDetailForm from '@/components/sell/ProductDetailForm'
+import ProductDetailForm from '../components/sell/ProductDetailForm'
 
 const ProductDetail = () => {
   return (
