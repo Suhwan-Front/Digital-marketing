@@ -3,7 +3,13 @@ import { SalesPost } from '../../utils/types'
 import ProductDetailForm from '@/components/sell/ProductDetailForm'
 import { TopNav } from '@/components/main/TopNav'
 
-export async function getServerSideProps(context) {
+interface ProductDetailPageProps {
+  salesPost: SalesPost
+}
+
+export async function getServerSideProps(context: {
+  params: { salesPostNumber: any }
+}) {
   const { salesPostNumber } = context.params
   const res = await fetch(
     `http://49.50.161.125:8080/salespost/${salesPostNumber}`,
@@ -18,7 +24,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function ProductPage({ salesPost }) {
+export default function ProductPage({ salesPost }: ProductDetailPageProps) {
   return (
     <>
       <TopNav />

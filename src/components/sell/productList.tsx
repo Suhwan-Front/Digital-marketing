@@ -108,12 +108,10 @@ const ProductList: React.FC = () => {
               조회수: {product.postHitCount}
             </p>
             <button
-              onMouseEnter={() => setHeartHover(index, true)}
-              onMouseLeave={() => setHeartHover(index, false)}
+              onMouseEnter={() => setHeartHover(true)}
+              onMouseLeave={() => setHeartHover(false)}
               onClick={() => likeClickHandler(index)}
-              className={`mr-2 focus:outline-none ${
-                heartHover[index] ? 'text-red-400' : ''
-              }`}
+              className={`mr-2 focus:outline-none`}
             >
               {!liked[index] ? (
                 <OutlineHeartIcon className="h-5 w-5" />

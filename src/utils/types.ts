@@ -11,6 +11,7 @@ export interface Product {
 
 export interface SalesPost {
   result: string
+  postTitle: string
   postWriter: string
   postHitCount: number
   salesPostNumber: number
@@ -21,7 +22,6 @@ export interface SalesPost {
   storeLocation: string
   descImages: Image[]
   postDate: string
-  postTitle: string
   category: string
 }
 

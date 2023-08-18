@@ -93,7 +93,7 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
     e.preventDefault()
 
     const formData = new FormData()
-    formData.append('salesPostNumber', salesPost.salesPostNumber)
+    formData.append('salesPostNumber', salesPost.salesPostNumber.toString())
     formData.append('pmTag', JSON.stringify(tags))
     formData.append('pmCategory', category)
     formData.append('pmPostTitle', salesPost.postTitle)
@@ -137,17 +137,6 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
       alert('리뷰 및 댓글 등록 중에 문제가 발생했습니다. 다시 시도해주세요.')
     }
 
-    setCommentList([
-      ...commentList,
-      {
-        contents: newComment,
-        writer: '작성자',
-        dateTime: '2023-08-16',
-        images: imageInput.map((image) => ({
-          url: URL.createObjectURL(image),
-        })),
-      },
-    ])
     setNewComment('')
     setImageInput([]) // 이미지 초기화
   }
