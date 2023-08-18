@@ -1,11 +1,11 @@
-import CheckoutForm from "@/components/sell/CheckoutForm"
+import CheckoutForm from '@/components/sell/CheckoutForm'
 
-const Checkout:React.FC = () => {
-    return(
-        <>
-            <CheckoutForm />
-        </>
-    )
+const Checkout: React.FC = () => {
+  return (
+    <>
+      <CheckoutForm />
+    </>
+  )
 }
 
 export default Checkout

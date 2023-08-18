@@ -1,17 +1,16 @@
-import UserSignUp from "@/components/auth/UserSignUp";
-import { Footer } from "@/components/main/Footer";
-import { TopNav } from "@/components/main/TopNav";
-import type { NextPage } from "next";
+import UserSignUp from '@/components/auth/UserSignUp'
+import { Footer } from '@/components/main/Footer'
+import { TopNav } from '@/components/main/TopNav'
+import type { NextPage } from 'next'
 
 const SignUp: NextPage = () => {
-
   return (
-        <div>
-          <TopNav />
+    <div>
+      <TopNav />
       <UserSignUp />
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

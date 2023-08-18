@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid';
-import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/outline';
-import '../../app/globals.css';
+import React, { useState } from 'react'
+import { HeartIcon as SolidHeartIcon } from '@heroicons/react/solid'
+import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/outline'
+import '../../app/globals.css'
 
 type Comment = {
-  id: number;
-  content: string;
-  commentLike: number;
-  username: string;
-  created_at: string;
-  updated_at: string;
-};
+  id: number
+  content: string
+  commentLike: number
+  username: string
+  created_at: string
+  updated_at: string
+}
 
 type PostData = {
-  id: number;
-  pmPostTitle: string;
-  pmPostWriter: string;
-  pmMainImage: string;
-  pmPostPictures: string[];
-  pmPostLike: number;
-  pmTag: string[];
-  pmPostContent: string;
-  comments: Comment[];
-};
+  id: number
+  pmPostTitle: string
+  pmPostWriter: string
+  pmMainImage: string
+  pmPostPictures: string[]
+  pmPostLike: number
+  pmTag: string[]
+  pmPostContent: string
+  comments: Comment[]
+}
 
 type PostProps = {
-  data: PostData;
-};
+  data: PostData
+}
 
 const Post: React.FC<PostProps> = ({ data }) => {
   const {
@@ -38,35 +38,38 @@ const Post: React.FC<PostProps> = ({ data }) => {
     pmTag,
     pmPostContent,
     comments,
-  } = data;
+  } = data
 
-  const [showComments, setShowComments] = useState(false);
-  const [liked, setLiked] = useState(false);
-  const [animatedLike, setAnimatedLike] = useState<number | null>(null);
-  const [heartHover, setHeartHover] = useState(false);
-  const [currentPicture, setCurrentPicture] = useState(0);
+  const [showComments, setShowComments] = useState(false)
+  const [liked, setLiked] = useState(false)
+  const [animatedLike, setAnimatedLike] = useState<number | null>(null)
+  const [heartHover, setHeartHover] = useState(false)
+  const [currentPicture, setCurrentPicture] = useState(0)
 
   const handleShowComments = () => {
-    setShowComments(!showComments);
-  };
+    setShowComments(!showComments)
+  }
 
   const likeClickHandler = () => {
     if (!liked) {
-      setAnimatedLike(Date.now());
+      setAnimatedLike(Date.now())
       setTimeout(() => {
-        setAnimatedLike(null);
-      }, 800);
+        setAnimatedLike(null)
+      }, 800)
     }
-    setLiked(!liked);
-  };
+    setLiked(!liked)
+  }
 
   const nextPicture = () => {
-    setCurrentPicture((currentPicture + 1) % (pmPostPictures.length + 1));
-  };
+    setCurrentPicture((currentPicture + 1) % (pmPostPictures.length + 1))
+  }
 
   const prevPicture = () => {
-    setCurrentPicture((currentPicture - 1 + pmPostPictures.length + 1) % (pmPostPictures.length + 1));
-  };
+    setCurrentPicture(
+      (currentPicture - 1 + pmPostPictures.length + 1) %
+        (pmPostPictures.length + 1),
+    )
+  }
 
   return (
     <div className="bg-white border shadow-md p-4 mb-4 transition-all duration-300 ease-in-out max-w-md mx-auto">
@@ -75,24 +78,38 @@ const Post: React.FC<PostProps> = ({ data }) => {
       <div className="mt-2 mb-4">
         <p>{pmPostContent}</p>
       </div>
-       <div className="mt-4 relative">
+      <div className="mt-4 relative">
         {pmPostPictures.length >= 1 && (
           <>
-            <button onClick={prevPicture} className="absolute top-1/2 left-1 z-10">{"<"}</button>
-            <button onClick={nextPicture} className="absolute top-1/2 right-1 z-10">{">"}</button>
+            <button
+              onClick={prevPicture}
+              className="absolute top-1/2 left-1 z-10"
+            >
+              {'<'}
+            </button>
+            <button
+              onClick={nextPicture}
+              className="absolute top-1/2 right-1 z-10"
+            >
+              {'>'}
+            </button>
           </>
         )}
-         <div className="overflow-hidden">
-          <div className="slide-track" style={{width: '100%', height: '64'}}>
+        <div className="overflow-hidden">
+          <div className="slide-track" style={{ width: '100%', height: '64' }}>
             <img
-              className={`w-full h-64 object-cover cursor-pointer slider-img ${currentPicture === 0 ? 'block' : 'hidden'}`}
+              className={`w-full h-64 object-cover cursor-pointer slider-img ${
+                currentPicture === 0 ? 'block' : 'hidden'
+              }`}
               src={pmMainImage}
               alt={'mainImage'}
             />
             {pmPostPictures.map((picture, index) => (
               <img
                 key={index + 1}
-                className={`w-full h-64 object-cover cursor-pointer slider-img ${currentPicture === (index + 1) ? 'block' : 'hidden'}`}
+                className={`w-full h-64 object-cover cursor-pointer slider-img ${
+                  currentPicture === index + 1 ? 'block' : 'hidden'
+                }`}
                 src={picture}
                 alt={`${index + 2}`}
               />
@@ -114,7 +131,10 @@ const Post: React.FC<PostProps> = ({ data }) => {
           )}
         </button>
         <span className="ml-1">{liked ? pmPostLike + 1 : pmPostLike}</span>
-        <span className="ml-auto text-sm text-gray-500 cursor-pointer" onClick={handleShowComments}>
+        <span
+          className="ml-auto text-sm text-gray-500 cursor-pointer"
+          onClick={handleShowComments}
+        >
           {showComments ? '댓글 닫기' : '댓글 열기'}
         </span>
       </div>
@@ -127,7 +147,7 @@ const Post: React.FC<PostProps> = ({ data }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post

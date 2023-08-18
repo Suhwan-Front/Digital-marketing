@@ -1,17 +1,16 @@
-import { TopNav } from '@/components/main/TopNav';
+import { TopNav } from '@/components/main/TopNav'
 import '../../app/globals.css'
-import { UserLogin } from "@/components/auth/UserLogin";
+import { UserLogin } from '@/components/auth/UserLogin'
 
 const Login = () => {
-    return (
-        <div>
-            <TopNav />
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <UserLogin />
-        </div>
+  return (
+    <div>
+      <TopNav />
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <UserLogin />
+      </div>
+    </div>
+  )
+}
 
-        </div>
-    );
-};
-
-export default Login;
+export default Login

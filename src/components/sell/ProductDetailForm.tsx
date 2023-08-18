@@ -1,136 +1,140 @@
-import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { SalesPost } from '../../utils/types';
+import React, { useEffect, useState } from 'react'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import { SalesPost } from '../../utils/types'
 import '../../app/globals.css'
-import Comment from './Comment';
-import axios from 'axios';
-import { API } from '@/API';
-import { BiSolidDownArrow } from "react-icons/bi";
+import Comment from './Comment'
+import axios from 'axios'
+import { BiSolidDownArrow } from 'react-icons/bi'
+import { useRouter } from 'next/router'
 
 const style = {
   glassBg: 'bg-white backdrop-blur-md bg-opacity-60',
-  glassInput: 'backdrop-blur-md bg-opacity-60 shadow-none hover:shadow-none focus:ring-0',
-  glassButton: 'backdrop-blur-md bg-opacity-80 hover:bg-opacity-100 focus:ring-0',
-};
+  glassInput:
+    'backdrop-blur-md bg-opacity-60 shadow-none hover:shadow-none focus:ring-0',
+  glassButton:
+    'backdrop-blur-md bg-opacity-80 hover:bg-opacity-100 focus:ring-0',
+}
 
 interface ProductDetailPageProps {
-  salesPost: SalesPost;
+  salesPost: SalesPost
 }
 
 const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
-  const [selectedOption, setSelectedOption] = useState('');
-  const [quantity, setQuantity] = useState(1);
-  const [review, setReview] = useState('');
-  const [question, setQuestion] = useState('');
-  const [newComment, setNewComment] = useState('');
-  const [commentList, setCommentList] = useState<Comment[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState('');
-  const [category, setCategory] = useState(''); 
-  const [imageInput, setImageInput] = useState<File[]>([]);
-  const [name, setName] = useState<string>('');
-
+  const [selectedOption, setSelectedOption] = useState('')
+  const [quantity, setQuantity] = useState(1)
+  const [review, setReview] = useState('')
+  const [question, setQuestion] = useState('')
+  const [newComment, setNewComment] = useState('')
+  const [commentList, setCommentList] = useState<Comment[]>([])
+  const [tags, setTags] = useState<string[]>([])
+  const [tagInput, setTagInput] = useState('')
+  const [category, setCategory] = useState('')
+  const [imageInput, setImageInput] = useState<File[]>([])
+  const [name, setName] = useState<string>('')
+  const router = useRouter()
 
   const handleSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(e.target.value);
-  };
+    setSelectedOption(e.target.value)
+  }
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(parseInt(e.target.value));
-  };
+    setQuantity(parseInt(e.target.value))
+  }
 
   const handleReviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setReview(e.target.value);
-  };
+    setReview(e.target.value)
+  }
 
   const handleQuestionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuestion(e.target.value);
-  };
+    setQuestion(e.target.value)
+  }
 
   const handleNewCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewComment(e.target.value);
-  };
+    setNewComment(e.target.value)
+  }
 
   const handleAddTag = () => {
-    if (tagInput) setTags([...tags, tagInput]);
-    setTagInput('');
-  };
+    if (tagInput) setTags([...tags, tagInput])
+    setTagInput('')
+  }
 
   const handleRemoveTag = (removeTag: string) => {
-    const newTags = tags.filter(tag => tag !== removeTag);
-    setTags(newTags);
-  };
+    const newTags = tags.filter((tag) => tag !== removeTag)
+    setTags(newTags)
+  }
 
   const sliderSettings = {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-  };
+  }
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
-  };
+    setCategory(e.target.value)
+  }
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      const newImages = Array.from(e.target.files);
-      setImageInput([...imageInput, ...newImages]);
+      const newImages = Array.from(e.target.files)
+      setImageInput([...imageInput, ...newImages])
     }
-  };
+  }
 
   const handleRemoveImage = (removeIndex: number) => {
-    setImageInput(imageInput.filter((_, index) => index !== removeIndex));
-  };
+    setImageInput(imageInput.filter((_, index) => index !== removeIndex))
+  }
 
-  useEffect(()=>{
-    setName(localStorage.getItem('name') ?? '익명');
-  },[])
+  useEffect(() => {
+    setName(localStorage.getItem('name') ?? '익명')
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const formData = new FormData();
-    formData.append('salesPostNumber', salesPost.salesPostNumber);
-    formData.append('pmTag', JSON.stringify(tags));
-    formData.append('pmCategory', category);
-    formData.append('pmPostTitle', salesPost.postTitle);
-    formData.append('pmPostWriter', name);
+    const formData = new FormData()
+    formData.append('salesPostNumber', salesPost.salesPostNumber)
+    formData.append('pmTag', JSON.stringify(tags))
+    formData.append('pmCategory', category)
+    formData.append('pmPostTitle', salesPost.postTitle)
+    formData.append('pmPostWriter', name)
     formData.append('storeLocation', salesPost.storeLocation)
-    formData.append('pmPostContents', salesPost.postContents);
+    formData.append('pmPostContents', salesPost.postContents)
 
     if (imageInput.length > 0) {
-      const [mainImage, ...otherImages] = imageInput;
+      const [mainImage, ...otherImages] = imageInput
 
-      formData.append('mainImage', mainImage);
+      formData.append('mainImage', mainImage)
 
       // 이미지 파일 자체를 img 배열에 추가합니다.
       otherImages.forEach((image, index) => {
-        formData.append(`img`, image);
-      });
+        formData.append(`img`, image)
+      })
     }
 
-    console.log('Payload to send:', Array.from(formData.entries())); // 전송될 페이로드 확인
+    console.log('Payload to send:', Array.from(formData.entries())) // 전송될 페이로드 확인
 
     // 서버 전송 코드 작성 (예: axios.post() 사용)
     try {
       // 수정하세요: 서버 주소를 입력하세요.
-      const response = await axios.post(`${API}/promotionalpost`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data', // 요청 헤더에 멀티파트 형식임을 명시해야 합니다.
+      const response = await axios.post(
+        `http://49.50.161.125:8080/promotionalpost`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data', // 요청 헤더에 멀티파트 형식임을 명시해야 합니다.
+          },
         },
-      });
+      )
 
       if (response.status === 200) {
-        // 성공적으로 전송되었음을 알리는 메시지 나타냅니다.
-        alert('리뷰 및 댓글이 성공적으로 등록되었습니다.');
+        router.push('/contents/promotion')
       } else {
-        // 실패했을 때의 메시지를 나타냅니다.
-        alert(`오류 발생: ${response.statusText}`);
+        router.push('/contents/promotion')
       }
     } catch (error) {
-      console.error('에러가 발생했습니다:', error);
-      alert('리뷰 및 댓글 등록 중에 문제가 발생했습니다. 다시 시도해주세요.');
+      console.error('에러가 발생했습니다:', error)
+      alert('리뷰 및 댓글 등록 중에 문제가 발생했습니다. 다시 시도해주세요.')
     }
 
     setCommentList([
@@ -139,31 +143,35 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
         contents: newComment,
         writer: '작성자',
         dateTime: '2023-08-16',
-        images: imageInput.map((image) => ({ url: URL.createObjectURL(image) })),
+        images: imageInput.map((image) => ({
+          url: URL.createObjectURL(image),
+        })),
       },
-    ]);
-    setNewComment('');
-    setImageInput([]); // 이미지 초기화
-  };
+    ])
+    setNewComment('')
+    setImageInput([]) // 이미지 초기화
+  }
 
   const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value
     if (value.slice(-1) === '#') {
-      handleAddTag();
+      handleAddTag()
     } else {
-      setTagInput(value);
+      setTagInput(value)
     }
-  };
+  }
 
   const sliderImages = [
     { image: salesPost.mainImage },
     ...(Array.isArray(salesPost.descImages) ? salesPost.descImages : []),
-  ];
+  ]
 
   if (salesPost.result === 'success') {
     return (
       <div className="product-container mx-auto py-8">
-        <h1 className="text-4xl mb-8 font-bold text-gray-700">{salesPost.postTitle}</h1>
+        <h1 className="text-4xl mb-8 font-bold text-gray-700">
+          {salesPost.postTitle}
+        </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Product Images Section */}
           <div className={`${style.glassBg} rounded-md shadow-md p-4`}>
@@ -188,12 +196,16 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
           {/* Product Info Section */}
           <div className={`${style.glassBg} rounded-md shadow-md p-8`}>
             <div className="mb-4">
-              <h2 className="text-2xl mb-2 font-semibold text-gray-600">상품 정보</h2>
+              <h2 className="text-2xl mb-2 font-semibold text-gray-600">
+                상품 정보
+              </h2>
               <p className="text-gray-700">{salesPost.postContents}</p>
             </div>
 
             <div className="mb-4">
-              <h2 className="text-2xl mb-2 font-semibold text-gray-600">옵션 선택</h2>
+              <h2 className="text-2xl mb-2 font-semibold text-gray-600">
+                옵션 선택
+              </h2>
               <BiSolidDownArrow className="absolute top-0 right-3 z-10 text-gray-600 pointer-events-none" />
               <select
                 value={selectedOption}
@@ -212,7 +224,9 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
             </div>
 
             <div className="mb-4">
-              <h2 className="text-2xl mb-2 font-semibold text-gray-600">수량</h2>
+              <h2 className="text-2xl mb-2 font-semibold text-gray-600">
+                수량
+              </h2>
               <input
                 type="number"
                 value={quantity}
@@ -223,11 +237,17 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
             </div>
 
             <div className="mb-4">
-              <h2 className="text-2xl mb-2 font-semibold text-gray-600">배송비</h2>
-              <p className="text-gray-700">배송비는 상품을 주문할 동네에 따라 차이가 날 수 있습니다.</p>
+              <h2 className="text-2xl mb-2 font-semibold text-gray-600">
+                배송비
+              </h2>
+              <p className="text-gray-700">
+                배송비는 상품을 주문할 동네에 따라 차이가 날 수 있습니다.
+              </p>
             </div>
 
-            <button className={`w-full py-2 mb-8 font-semibold text-white bg-blue-500 rounded-md ${style.glassButton}`}>
+            <button
+              className={`w-full py-2 mb-8 font-semibold text-white bg-blue-500 rounded-md ${style.glassButton}`}
+            >
               상품 주문하기
             </button>
           </div>
@@ -285,7 +305,10 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
                 placeholder="댓글을 입력하세요."
               />
               <div className="mb-2">
-                <label htmlFor="image-upload" className="cursor-pointer py-2 px-4 bg-blue-600 text-white rounded-md">
+                <label
+                  htmlFor="image-upload"
+                  className="cursor-pointer py-2 px-4 bg-blue-600 text-white rounded-md"
+                >
                   이미지 추가
                 </label>
                 <input
@@ -302,7 +325,12 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
                   <div key={index} className="mb-3">
                     <button
                       className="bg-red-800 text-white rounded-md"
-                      style={{ position: 'absolute', zIndex: 10, right: '5%', top: '5%' }}
+                      style={{
+                        position: 'absolute',
+                        zIndex: 10,
+                        right: '5%',
+                        top: '5%',
+                      }}
                       onClick={() => handleRemoveImage(index)}
                     >
                       삭제
@@ -328,15 +356,14 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
           <Comment comments={commentList} />
         </div>
       </div>
-    );
+    )
   } else {
     return (
       <div className="container mx-auto px-8 py-4">
         <p className="text-center text-2xl text-gray-600">데이터가 없습니다.</p>
       </div>
-    );
+    )
   }
-};
+}
 
-export default ProductDetailForm;
-
+export default ProductDetailForm

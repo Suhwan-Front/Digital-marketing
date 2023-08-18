@@ -1,39 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { TopNav } from '@/components/main/TopNav';
-import Post from '@/components/promotion/Post';
-import { API } from '@/API';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { TopNav } from '@/components/main/TopNav'
+import Post from '@/components/promotion/post'
 
 const Promotion = () => {
-  const [postList, setPostList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [postList, setPostList] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
-      setError(false);
-      setLoading(true);
+      setError(false)
+      setLoading(true)
 
       try {
-        const response = await axios.get(`${API}/promotionalpost`);
+        const response = await axios.get(
+          `http://49.50.161.125:8080/promotionalpost`,
+        )
         if (response.data && response.data.result === 'success') {
-          setPostList(response.data.data);
+          setPostList(response.data.data)
           console.log(response.data)
         } else {
-          throw new Error(response.data.result);
+          throw new Error(response.data.result)
         }
       } catch (e) {
-        setError(e.message);
+        setError(e.message)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
-  if (error) return <div>Error: {error}</div>;
-  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>
+  if (loading) return <div>Loading...</div>
 
   return (
     <div>
@@ -43,6 +44,6 @@ const Promotion = () => {
       ))}
     </div>
   )
-};
+}
 
-export default Promotion;
+export default Promotion

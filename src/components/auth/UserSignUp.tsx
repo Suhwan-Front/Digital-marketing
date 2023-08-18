@@ -1,156 +1,164 @@
-import React, { useState } from "react";
-import "../../app/globals.css";
-import { useRouter } from "next/router";
-import { API } from "@/API";
-
+import React, { useState } from 'react'
+import '../../app/globals.css'
+import { useRouter } from 'next/router'
 
 type FormData = {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  gender: string;
-  age: string;
-  birthday: string;
-  address: string;
-  [key: string]: string;
-};
+  email: string
+  password: string
+  passwordConfirm: string
+  name: string
+  gender: string
+  age: string
+  birthday: string
+  address: string
+  [key: string]: string
+}
 
 type FormErrors = {
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  gender: string;
-  age: string;
-  birthday: string;
-  address: string;
-  [key: string]: string;
-};
+  email: string
+  password: string
+  passwordConfirm: string
+  name: string
+  gender: string
+  age: string
+  birthday: string
+  address: string
+  [key: string]: string
+}
 
 const UserSignUp = () => {
-    const router = useRouter();
+  const router = useRouter()
   const [formData, setFormData] = useState<FormData>({
-  email: "",
-  password: "",
-  passwordConfirm: "",
-  name: "",
-  gender: "",
-  age: "",
-  birthday: "",
-  address: "",
-});
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    name: '',
+    gender: '',
+    age: '',
+    birthday: '',
+    address: '',
+  })
 
-const [formErrors, setFormErrors] = useState<FormErrors>({
-  email: "",
-  password: "",
-  passwordConfirm: "",
-  name: "",
-  gender: "",
-  age: "",
-  birthday: "",
-  address: "",
-});
+  const [formErrors, setFormErrors] = useState<FormErrors>({
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    name: '',
+    gender: '',
+    age: '',
+    birthday: '',
+    address: '',
+  })
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> |
-    React.ChangeEvent<HTMLSelectElement>
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   const handlePasswordCheck = () => {
-    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[\d])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{10,}$/;
+    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[\d])(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{10,}$/
 
     if (!passwordPattern.test(formData.password)) {
-      setFormErrors({ ...formErrors, password: '비밀번호는 영어, 숫자, 특수문자가 포함된 10자 이상이어야 합니다.' });
-      return false;
+      setFormErrors({
+        ...formErrors,
+        password:
+          '비밀번호는 영어, 숫자, 특수문자가 포함된 10자 이상이어야 합니다.',
+      })
+      return false
     }
 
     if (formData.password !== formData.passwordConfirm) {
-      setFormErrors({ ...formErrors, passwordConfirm: '비밀번호가 일치하지 않습니다.' });
-      return false;
+      setFormErrors({
+        ...formErrors,
+        passwordConfirm: '비밀번호가 일치하지 않습니다.',
+      })
+      return false
     }
 
-    setFormErrors({ ...formErrors, password: '', passwordConfirm: '' });
-    return true;
-  };
+    setFormErrors({ ...formErrors, password: '', passwordConfirm: '' })
+    return true
+  }
 
   const validateForm = () => {
-    let areFieldsFilled = true;
-    let errors = { ...formErrors };
+    let areFieldsFilled = true
+    let errors = { ...formErrors }
 
     for (const key in formData) {
       if (formData[key] === '') {
-        errors[key] = '필수로 채워야 합니다.';
-        areFieldsFilled = false;
+        errors[key] = '필수로 채워야 합니다.'
+        areFieldsFilled = false
       } else {
-        errors[key] = '';
+        errors[key] = ''
       }
     }
 
-    setFormErrors(errors);
-    return areFieldsFilled;
-  };
+    setFormErrors(errors)
+    return areFieldsFilled
+  }
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+    e.preventDefault()
     console.log(formData)
 
-  if (!validateForm()) {
-    return;
-  }
-  
-  if (!handlePasswordCheck()) {
-    return;
-  }
-
-  try {
-    const response = await fetch(`${API}/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-        gender: formData.gender,
-        age: formData.age,
-        birthday: formData.birthday,
-        address: formData.address,
-      }),
-    });
-
-    if (response.ok) {
-            router.push("/auth/Login");
-    } else {
-      console.error("회원가입 실패");
+    if (!validateForm()) {
+      return
     }
-  } catch (error) {
-    console.error("회원가입 중 에러 발생", error);
+
+    if (!handlePasswordCheck()) {
+      return
+    }
+
+    try {
+      const response = await fetch(`http://49.50.161.125:8080/auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          name: formData.name,
+          gender: formData.gender,
+          age: formData.age,
+          birthday: formData.birthday,
+          address: formData.address,
+        }),
+      })
+
+      if (response.ok) {
+        router.push('/auth/Login')
+      } else {
+        console.error('회원가입 실패')
+      }
+    } catch (error) {
+      console.error('회원가입 중 에러 발생', error)
+    }
   }
-};
 
   const renderError = (error: string) => {
     if (error) {
-      return (
-        <div style={{ color: "red", fontSize: "12px" }}>
-          {error}
-        </div>
-      );
+      return <div style={{ color: 'red', fontSize: '12px' }}>{error}</div>
     }
-    return null;
-  };
+    return null
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 py-24">
       <div className="w-full max-w-lg">
-        <form onSubmit={handleSignUp} className="bg-white shadow-lg rounded-lg px-12 py-8 mb-4">
+        <form
+          onSubmit={handleSignUp}
+          className="bg-white shadow-lg rounded-lg px-12 py-8 mb-4"
+        >
           <h2 className="text-3xl font-semibold mb-6">회원가입</h2>
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="email"
+            >
               이메일
             </label>
             <input
@@ -162,11 +170,13 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               value={formData.email}
               onChange={handleChange}
             />
-                  {renderError(formErrors.email)}
-
+            {renderError(formErrors.email)}
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="password"
+            >
               비밀번호
             </label>
             <input
@@ -178,11 +188,13 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               value={formData.password}
               onChange={handleChange}
             />
-                  {renderError(formErrors.password)}
-
+            {renderError(formErrors.password)}
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="password"
+            >
               비밀번호 확인
             </label>
             <input
@@ -194,11 +206,13 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               value={formData.passwordConfirm}
               onChange={handleChange}
             />
-                  {renderError(formErrors.passwordConfirm)}
-
+            {renderError(formErrors.passwordConfirm)}
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="name"
+            >
               이름
             </label>
             <input
@@ -210,11 +224,13 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               value={formData.name}
               onChange={handleChange}
             />
-                  {renderError(formErrors.name)}
-
+            {renderError(formErrors.name)}
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="birthday">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="birthday"
+            >
               생년월일
             </label>
             <input
@@ -225,11 +241,13 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               value={formData.birthday}
               onChange={handleChange}
             />
-                  {renderError(formErrors.age)}
-
+            {renderError(formErrors.age)}
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="address">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="address"
+            >
               나이
             </label>
             <input
@@ -241,11 +259,12 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               value={formData.age}
               onChange={handleChange}
             />
-                  {renderError(formErrors.age)}
-
+            {renderError(formErrors.age)}
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2">성별</label>
+            <label className="block text-gray-700 font-semibold mb-2">
+              성별
+            </label>
             <select
               className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
               name="gender"
@@ -256,11 +275,13 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               <option value="male">남자</option>
               <option value="female">여자</option>
             </select>
-                  {renderError(formErrors.gender)}
-
+            {renderError(formErrors.gender)}
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2" htmlFor="address">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="address"
+            >
               주소
             </label>
             <input
@@ -272,8 +293,7 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
               value={formData.address}
               onChange={handleChange}
             />
-                  {renderError(formErrors.address)}
-
+            {renderError(formErrors.address)}
           </div>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline w-full mt-4"
@@ -284,7 +304,7 @@ const [formErrors, setFormErrors] = useState<FormErrors>({
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UserSignUp;
+export default UserSignUp

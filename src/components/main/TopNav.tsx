@@ -1,20 +1,19 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import LocalLogin from '../LocalLogin';
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
+import LocalLogin from '../LocalLogin'
 
 export const TopNav: React.FC = () => {
-  const [currentPath, setCurrentPath] = useState('');
+  const [currentPath, setCurrentPath] = useState('')
 
   useEffect(() => {
-    setCurrentPath(window.location.pathname);
-  }, []);
+    setCurrentPath(window.location.pathname)
+  }, [])
 
-  const isCurrentPage = (path: string) => currentPath === path;
-  const activeButtonClass = (
+  const isCurrentPage = (path: string) => currentPath === path
+  const activeButtonClass =
     'text-purple-800 font-bold border-b-2 border-purple-800 pb-1'
-  );
 
   return (
     <nav className="bg-white p-4 border-b border-gray-300">
@@ -31,7 +30,7 @@ export const TopNav: React.FC = () => {
                 구매자
               </button>
             </Link>
-            <Link href={'/Seller'}>
+            <Link href={'/seller'}>
               <button
                 id="seller"
                 className={`text-purple-600 hover:text-purple-800 text-lg font-semibold ${
@@ -42,7 +41,7 @@ export const TopNav: React.FC = () => {
               </button>
             </Link>
           </div>
-          <Link href={'/contents/Promotion'}>
+          <Link href={'/contents/promotion'}>
             <button
               className={`text-gray-600 hover:text-gray-800 text-lg font-medium ${
                 isCurrentPage('/contents/Promotion') && activeButtonClass
@@ -55,5 +54,5 @@ export const TopNav: React.FC = () => {
         <LocalLogin />
       </div>
     </nav>
-  );
-};
+  )
+}
