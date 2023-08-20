@@ -2,12 +2,33 @@ import Link from 'next/link'
 import '../../app/globals.css'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Image from 'next/image'
+import logo from '../../../public/Logo/logo_transparent.png'
+import { mainColor } from '@/utils/color'
 
 export const UserLogin: React.FC = () => {
   const router = useRouter()
   const [isError, setIsError] = useState('')
+  const [onFocus, setOnFocus] = useState({
+    idFocus: false,
+    pwFocus: false
+  })
   const handleKakaoLogin = () => {
     router.push('KakaoEmail')
+  }
+
+  const handleFocusEvent = (focus: any) => {
+    setOnFocus({
+      ...onFocus,
+      [focus]: false,
+    })
+  }
+
+  const handleBlurEvent = (focus: any) => {
+    setOnFocus({
+      ...onFocus,
+      [focus]: false,
+    })
   }
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -51,7 +72,7 @@ export const UserLogin: React.FC = () => {
       className="bg-transparent p-8 py-12 shadow-md rounded-md w-96 backdrop-blur-md bg-opacity-40"
       style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
     >
-      <h1 className="text-3xl font-bold mb-6 text-center">로그인</h1>
+      <Image src={logo} alt={'Logo Picture'} />
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -63,6 +84,8 @@ export const UserLogin: React.FC = () => {
           <input
             id="username"
             type="text"
+            onFocus={() => handleFocusEvent('idFocus')}
+            onBlur={() => handleBlurEvent('idFocus')}
             className="w-full border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-300 focus:border-blue-500"
             placeholder="아이디를 입력하세요"
           />
@@ -98,13 +121,6 @@ export const UserLogin: React.FC = () => {
           로그인
         </button>
       </form>
-      <div className="text-center mt-4">
-        <p className="text-blue-500 hover:underline">아이디 찾기</p>
-        <p className="text-blue-500 hover:underline">비밀번호 찾기</p>
-        <p className="text-blue-500 hover:underline">
-          <Link href={'/auth/SignUp'}>회원가입</Link>
-        </p>
-      </div>
       <button
         onClick={handleKakaoLogin}
         className="w-full p-3 mt-4 bg-yellow-500 text-white rounded-md transition-all duration-200 ease-in-out transform hover:scale-105 hover:bg-yellow-600"
