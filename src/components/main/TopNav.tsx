@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import LocalLogin from '../LocalLogin'
+import Image from 'next/image'
+import logo from '../../../public/Logo/logo.png'
 
 export const TopNav: React.FC = () => {
   const [currentPath, setCurrentPath] = useState('')
@@ -12,20 +14,20 @@ export const TopNav: React.FC = () => {
   }, [])
 
   const isCurrentPage = (path: string) => currentPath === path
-  const activeButtonClass =
-    'text-purple-800 font-bold border-b-2 border-purple-800 pb-1'
+
+  const nowOut = 'inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300'
+  const nowIn = 'inline-block p-2 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active'
 
   return (
-    <nav className="bg-white p-4 border-b border-gray-300">
+    <nav className="bg-white p-3 border-b border-gray-300">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
         <div className="flex space-x-14">
+          <Image src={logo} alt='Logo Image' height={10} width={40} />
           <div className="flex space-x-4">
             <Link href={'/'}>
               <button
                 id="purchaser"
-                className={`text-purple-600 hover:text-purple-800 text-lg font-semibold ${
-                  isCurrentPage('/') && activeButtonClass
-                }`}
+                className={`${isCurrentPage('/') ? (nowIn) : (nowOut)}`}
               >
                 구매자
               </button>
@@ -33,22 +35,13 @@ export const TopNav: React.FC = () => {
             <Link href={'/seller'}>
               <button
                 id="seller"
-                className={`text-purple-600 hover:text-purple-800 text-lg font-semibold ${
-                  isCurrentPage('/Seller') && activeButtonClass
-                }`}
+                className={`${isCurrentPage('/seller') ? (nowIn) : (nowOut)}`}
               >
                 판매자
               </button>
             </Link>
           </div>
           <Link href={'/contents/promotion'}>
-            <button
-              className={`text-gray-600 hover:text-gray-800 text-lg font-medium ${
-                isCurrentPage('/contents/Promotion') && activeButtonClass
-              }`}
-            >
-              홍보 게시판
-            </button>
           </Link>
         </div>
         <LocalLogin />

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'GabiaOndam';
+  src: url('/public/fonts/GabiaOndam.ttf') format('fft');
+}
+
+.body {
+  font-family: 'GabiaOndam';
+}
+
 .post-container {
   max-width: 30%;
   margin-left: auto;
@@ -12,18 +21,6 @@
   max-width: 70%;
   margin-left: auto;
   margin-right: auto;
-}
-
-body {
-  @apply bg-gray-50;
-}
-
-.glass {
-  @apply bg-white bg-opacity-70 backdrop-blur-md border border-gray-200 border-opacity-20 rounded-lg;
-}
-
-.card-scale-hover {
-  @apply transform hover:scale-105 transition-transform duration-300 ease-in-out hover:bg-opacity-80 hover:backdrop-blur-lg;
 }
 
 .square-image-container {

@@ -72,15 +72,11 @@ export const UserLogin: React.FC = () => {
       className="bg-transparent p-8 py-12 shadow-md rounded-md w-96 backdrop-blur-md bg-opacity-40"
       style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
     >
-      <Image src={logo} alt={'Logo Picture'} />
+      <div className='flex justify-center py-12'>
+      <Image src={logo} alt={'Logo Picture'} width={100} height={100}/>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="username"
-            className="text-sm font-semibold mb-1 block"
-          >
-            아이디
-          </label>
           <input
             id="username"
             type="text"
@@ -91,12 +87,6 @@ export const UserLogin: React.FC = () => {
           />
         </div>
         <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="text-sm font-semibold mb-1 block"
-          >
-            비밀번호
-          </label>
           <input
             id="password"
             type="password"
