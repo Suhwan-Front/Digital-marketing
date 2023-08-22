@@ -10,7 +10,7 @@ const Login = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div>
         <UserLogin />
-      <div className="flex justify-between text-center">
+      <div className="flex justify-between text-center p-1">
         <div className='flex'>
           <p className="text-gray-400 hover:underline mr-1">아이디 찾기</p>
           <p className='text-gray-400'>/</p>
