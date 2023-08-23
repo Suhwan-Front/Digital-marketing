@@ -19,10 +19,10 @@ export const TopNav: React.FC = () => {
   const nowIn = 'inline-block p-2 text-purple-600 border-b-2 border-purple-600 rounded-t-lg active'
 
   return (
-    <nav className="bg-white p-3 border-b border-gray-300">
+    <nav className="bg-white border-b border-gray-300">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
-        <div className="flex space-x-14">
-          <Image src={logo} alt='Logo Image' height={10} width={40} />
+        <div className="flex items-center space-x-14">
+          <Image className='h-8' src={logo} alt='Logo Image' width={30} />
           <div className="flex space-x-4">
             <Link href={'/'}>
               <button

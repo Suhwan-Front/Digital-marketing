@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { ImExit } from 'react-icons/im'
-import { IoLogInSharp, IoNewspaper } from 'react-icons/io5'
+import { FaShoppingCart, FaBell } from "react-icons/fa"
 
 const LocalLogin = () => {
   const [localID, setLocalID] = useState<string | null>()
@@ -27,26 +27,19 @@ const LocalLogin = () => {
     <>
       {localID === null ? (
         <div className="flex">
+          <button className='pr-6'>
+          <FaShoppingCart size='20' />
+          </button>
+          <button className='pr-6'>
+          <FaBell size='20' />
+          </button>
+          <div className='border-gray-300 border-l-2 pl-6' />
           <Link href={'/auth/Login'}>
             <button
-              className="flex items-center bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              className="flex items-center text-gray-400 text-sm"
               type="button"
             >
-              <p className="pr-2">
-                <IoLogInSharp color="#ffffff" />
-              </p>
               로그인
-            </button>
-          </Link>
-          <Link href={'/auth/SignUp'}>
-            <button
-              className="flex items-center bg-gray-700 text-white active:bg-gray-900 font-bold uppercase text-sm px-6 py-2 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              <p className="pr-2">
-                <IoNewspaper color="#ffffff" />
-              </p>
-              회원가입
             </button>
           </Link>
         </div>
