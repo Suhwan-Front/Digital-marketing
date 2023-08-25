@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { PiWarningCircleBold } from 'react-icons/pi'
+import { FaShoppingCart } from 'react-icons/fa'
+import Link from 'next/link'
 
 export const BasketForm = () => {
   const [warnAlert, setWarnAlert] = useState(false)
@@ -7,8 +9,8 @@ export const BasketForm = () => {
     setWarnAlert(!warnAlert)
   }
   return (
-    <div className="flex w-full justify-center">
-      <div className="flex justify-center text-gray-500 bg-white w-2/3">
+    <div className="flex flex-col items-center w-full justify-center">
+      <div className="flex mt-1 justify-center text-gray-500 bg-white w-2/3">
         <div className="flex items-center relative">
           장바구니
           <button className="pl-2" onClick={handleWarnClickHandler}>
@@ -35,13 +37,13 @@ export const BasketForm = () => {
                     ></path>
                   </svg>
                 </div>
-                <div className="flex ml-3 text-sm font-normal">
-                  장바구니의 상품은 최대 30일까지 저장됩니다. 상품 정보 변경시
-                  주문이 불가능 할 수 있습니다.
+                <div className="flex ml-2 w-44 text-sm font-normal">
+                  장바구니의 상품은 최대 30일까지 저장됩니다.
+                  <br /> 상품 정보 변경시 주문이 불가능 할 수 있습니다.
                 </div>
                 <button
                   type="button"
-                  className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                  className="ml-auto mb-16 -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
                   data-collapse-toggle="toast-default"
                   aria-label="Close"
                   onClick={handleWarnClickHandler}
@@ -64,6 +66,18 @@ export const BasketForm = () => {
             </div>
           )}
         </div>
+      </div>
+      <div className="flex flex-col items-center justify-center min-h-screen mt-1 w-2/3 bg-white">
+        <FaShoppingCart size="30" color="#D3D3D3" />
+        <p>장바구니에 담긴 상품이 없습니다.</p>
+        <Link href={'/'}>
+          <button
+            type="button"
+            className="border border-gray-600 bg-gray-600 text-white rounded-md px-8 py-1 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline"
+          >
+            홈으로
+          </button>
+        </Link>
       </div>
     </div>
   )
