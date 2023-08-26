@@ -78,6 +78,17 @@ const LocalLogin = () => {
         </div>
       ) : (
         <div className="flex items-center">
+          <button
+            className="pr-6 relative"
+            onClick={handleAlert}
+            onBlur={alertMakeFalse}
+          >
+            <FaShoppingCart size="20" />
+          </button>
+          <button className="pr-6">
+            <FaBell size="20" />
+          </button>
+          <div className="border-gray-300 border-l-2 pl-6" />
           <p className="mx-5">{name}님 환영합니다</p>
           <button
             onClick={handleLogout}

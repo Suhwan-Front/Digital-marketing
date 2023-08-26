@@ -11,7 +11,7 @@ export const UserLogin: React.FC = () => {
   const [isError, setIsError] = useState('')
   const [onFocus, setOnFocus] = useState({
     idFocus: false,
-    pwFocus: false
+    pwFocus: false,
   })
   const handleKakaoLogin = () => {
     router.push('KakaoEmail')
@@ -72,8 +72,8 @@ export const UserLogin: React.FC = () => {
       className="bg-transparent p-8 py-12 shadow-md rounded-md w-96 backdrop-blur-md bg-opacity-40"
       style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
     >
-      <div className='flex justify-center py-12'>
-      <Image src={logo} alt={'Logo Picture'} width={100} height={100}/>
+      <div className="flex justify-center py-12">
+        <Image src={logo} alt={'Logo Picture'} width={100} height={100} />
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
