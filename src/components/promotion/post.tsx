@@ -117,6 +117,9 @@ const Post: React.FC<PostProps> = ({ data }) => {
           </div>
         </div>
       </div>
+      <div className='flex'>
+        <div></div>
+      </div>
       <div className="flex items-center mt-2">
         <button
           onMouseEnter={() => setHeartHover(true)}
