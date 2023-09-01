@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { TopNav } from '../../components/main/TopNav'
 import Post from '../../components/promotion/post'
+import { Footer } from '@/components/main/Footer'
 
 interface PostType {
   id: number
@@ -31,7 +32,7 @@ const Promotion = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setError('false')
+      setError('')
       setLoading(true)
 
       try {
@@ -67,6 +68,7 @@ const Promotion = () => {
       {postList.map((post) => (
         <Post key={post.id} data={post} />
       ))}
+      <Footer />
     </div>
   )
 }

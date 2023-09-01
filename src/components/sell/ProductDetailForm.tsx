@@ -264,12 +264,15 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
                   추가
                 </button>
               </div>
-              <ul className="mt-2 space-y-1">
+              <ul className="flex mt-2 space-y-1">
+                <li className="cursor-pointer text-blue-600 mt-1 mr-2">
+                  예시
+                </li>
                 {tags.map((tag, index) => (
                   <li
                     key={index}
                     onClick={() => handleRemoveTag(tag)}
-                    className="cursor-pointer text-blue-600"
+                    className="cursor-pointer text-blue-600 mt-0 mr-2"
                   >
                     {tag}
                   </li>
@@ -290,7 +293,7 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
                 type="text"
                 value={newComment}
                 onChange={handleNewCommentChange}
-                className={`block w-full mb-2 py-2 px-3 bg-white border border-gray-300 rounded-md text-gray-600 ${style.glassInput}`}
+                className={`block h-40 w-full mb-2 py-2 px-3 bg-white border border-gray-300 rounded-md text-gray-600 ${style.glassInput}`}
                 placeholder="댓글을 입력하세요."
               />
               <div className="mb-2">
@@ -309,21 +312,9 @@ const ProductDetailForm = ({ salesPost }: ProductDetailPageProps) => {
                   style={{ display: 'none' }}
                 />
               </div>
-              <div>
+              <div className='flex'>
                 {imageInput.map((image, index) => (
                   <div key={index} className="mb-3">
-                    <button
-                      className="bg-red-800 text-white rounded-md"
-                      style={{
-                        position: 'absolute',
-                        zIndex: 10,
-                        right: '5%',
-                        top: '5%',
-                      }}
-                      onClick={() => handleRemoveImage(index)}
-                    >
-                      삭제
-                    </button>
                     <img
                       src={URL.createObjectURL(image)}
                       alt={`리뷰 이미지-${index}`}
